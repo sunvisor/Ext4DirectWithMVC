@@ -1,3 +1,10 @@
+/**
+ * ビューポート
+ * File:    Viewport.js
+ * Auther:  sunvisor
+ * Date:    2011-08-10
+ * Copyright (C) Sunvisor 2011 All right reserved.
+ **/
 Ext.define('AM.view.Viewport', {
     extend: 'Ext.container.Viewport',
     alias: 'widget.AM.viewport',

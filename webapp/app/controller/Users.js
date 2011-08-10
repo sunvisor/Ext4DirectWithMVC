@@ -1,3 +1,10 @@
+/**
+ * Usersコントローラー
+ * File:    Users.js
+ * Auther:  sunvisor
+ * Date:    2011-08-10
+ * Copyright (C) Sunvisor 2011 All right reserved.
+ **/
 Ext.define('AM.controller.Users', {
     extend: 'Ext.app.Controller',
 
@@ -74,8 +81,8 @@ Ext.define('AM.controller.Users', {
     },
 
     onGridClick: function(grid) {
-		grid.ownerCt.down(('button[action=delete]')).enable();
-		grid.ownerCt.down(('button[action=edit]')).enable();
+        grid.ownerCt.down(('button[action=delete]')).enable();
+        grid.ownerCt.down(('button[action=edit]')).enable();
     },
 
     onGridDblClick: function(grid, record){
@@ -87,7 +94,7 @@ Ext.define('AM.controller.Users', {
     },
     
     onButtonEditClick: function(button){
-		var me = this,
+        var me = this,
             sm = me.getSelectionModel(),
             record = sm.getSelection()[0];
 
