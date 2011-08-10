@@ -14,7 +14,7 @@ If you are unsure which license is appropriate for your use, please contact the 
 */
 Ext.define('AM.view.user.List' ,{
     extend: 'Ext.grid.Panel',
-    alias : 'widget.AM.userlist',
+    alias : 'widget.AMuserlist',
 
     title : '全てのユーザー',
     store: 'Users',

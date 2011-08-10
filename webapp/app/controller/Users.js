@@ -19,23 +19,23 @@ Ext.define('AM.controller.Users', {
         var me = this;
 
         me.control({
-            'userlist dataview': {
+            'AMuserlist dataview': {
                 itemdblclick: me.onGridDblClick,
                 itemclick: me.onGridClick
             },
-            'userlist button[action=edit]': {
+            'AMuserlist button[action=edit]': {
                 click: me.onButtonEditClick
             },
-            'userlist button[action=delete]': {
+            'AMuserlist button[action=delete]': {
                 click: me.onButtonDeleteClick
             },
-            'userlist button[action=add]': {
+            'AMuserlist button[action=add]': {
                 click: me.onButtonAddClick
             },
-            'userlist button[action=save]': {
+            'AMuserlist button[action=save]': {
                 click: me.onButtonSaveClick
             },
-            'useredit button[action=save]': {
+            'AMuseredit button[action=save]': {
                 click: me.updateUser
             }
         });
@@ -63,7 +63,7 @@ Ext.define('AM.controller.Users', {
 
     onButtonDeleteClick: function(button){
         var me = this,
-            sm = button.up('userlist').getView().getSelectionModel(),
+            sm = me.getSelectionModel(),
             record = sm.getSelection()[0],
             store = me.getUsersStore();
 
@@ -88,7 +88,7 @@ Ext.define('AM.controller.Users', {
     
     onButtonEditClick: function(button){
 		var me = this,
-            sm = button.up('userlist').getView().getSelectionModel(),
+            sm = me.getSelectionModel(),
             record = sm.getSelection()[0];
 
         if(record) {
@@ -122,6 +122,10 @@ Ext.define('AM.controller.Users', {
         }
         win.close();
         // this.getUsersStore().sync();
+    },
+
+    getSelectionModel: function() {
+        return button.up('AMuserlist').getView().getSelectionModel();
     }
 
 });

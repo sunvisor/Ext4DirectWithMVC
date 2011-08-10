@@ -9,22 +9,38 @@
 class users extends xFrameworkPX_Model
 {
     public $usetable = 'users';
-    public $behaviors = array('log');
+
     private $_fields = array(
         'name',
         'email'
     );
 
-    public function _getFields($includeId)
+    /**
+     * _getFields 
+     * 
+     * @param mixed $includeId  idフィールドを含むかどうか 
+     * @access private
+     * @return array of field names
+     */
+    private function _getFields($includeId)
     {
+        $id = $this->primaryKey;
+
         if( $includeId ){
-            return array_merge(array('id'), $this->_fields);
+            return array_merge(array($id), $this->_fields);
         } else {
             return $this->_fields;
         }
     }
 
-    public function _getValues($includeId)
+    /**
+     * _getValues 
+     * 
+     * @param mixed $includeId  idフィールドを含むかどうか 
+     * @access private
+     * @return array of value names (add colon to top of field name)
+     */
+    private function _getValues($includeId)
     {
         $r = $this->_getFields($includeId);
         return array_map(
@@ -35,16 +51,21 @@ class users extends xFrameworkPX_Model
         );
     }
 
+    /**
+     * getAll 
+     * 
+     * @access public
+     * @return all records
+     */
     public function getAll() 
     {
-        $param = array(
-            'fields' => array(
-                'id',
-                'name',
-                'email'
+        $fields = $this->_getFields(true);
+        $r = $this->get(
+            'all',
+            array(
+                'fields' => $fields
             )
-        ); 
-        $r = $this->get('all', $param);
+        );
         return array(
             'total' => count($r),
             'data' => $r,
@@ -52,6 +73,13 @@ class users extends xFrameworkPX_Model
         );        
     }
 
+    /**
+     * updateRec 
+     * 
+     * @param mixed $arg 
+     * @access public
+     * @return response
+     */
     public function updateRec($arg)
     {
         if( is_array($arg) ){
@@ -68,15 +96,52 @@ class users extends xFrameworkPX_Model
         );
     }
 
+    /**
+     * _updateOne 
+     * 
+     * @param mixed $arg 
+     * @access private
+     * @return void
+     */
+    private function _updateOne($arg)
+    {
+        $rec = (array)$arg;
+        $fields = $this->_getFields(false);
+        $id = $this->primaryKey;
+
+        $bind = array();
+        foreach($fields as $field){
+            $bind[$field] = $rec[$field];
+        }
+
+        $param = array(
+            'field' => $fields,
+            'value' => $this->_getValues(false),
+            'bind' => $bind,
+            'where' => $id . '=' . $rec[$id]
+        );
+
+        $this->update($param);
+    }
+
+    /**
+     * removeRec 
+     * 
+     * @param mixed $arg 
+     * @access public
+     * @return response
+     */
     public function removeRec($arg)
     {
+        $id = $this->primaryKey;
+
         $conds = array();
         if( is_array($arg) ){ 
             foreach($arg as $rec){
-                $conds[] = $rec->id;
+                $conds[] = $rec->$id;
             }
         } else {
-            $conds[] = $arg->id; 
+            $conds[] = $arg->$id; 
         }
         $this->remove($conds);
         
@@ -86,14 +151,23 @@ class users extends xFrameworkPX_Model
         );
     }
 
+    /**
+     * addRec 
+     * 
+     * @param mixed $arg 
+     * @access public
+     * @return response
+     */
     public function addRec($arg)
     {
+        $id = $this->primaryKey;
+
         if( is_array($arg) ){
             foreach($arg as &$rec){
-                $rec->id = $this->_addOne($rec);
+                $rec->$id = $this->_addOne($rec);
             }
         } else {
-            $arg->id = $this->_addOne($arg);
+            $arg->$id = $this->_addOne($arg);
         }
 
         return array(
@@ -102,6 +176,13 @@ class users extends xFrameworkPX_Model
         );
     }
 
+    /**
+     * _addOne 
+     * 
+     * @param mixed $arg 
+     * @access private
+     * @return id of inserted record
+     */
     private function _addOne($arg)
     {
         $rec = (array)$arg;
@@ -115,23 +196,6 @@ class users extends xFrameworkPX_Model
         $this->insert($param);
 
         return $this->lastId();
-    }
-
-    private function _updateOne($arg)
-    {
-        $rec = (array)$arg;
-        $field = $this->_getFields(false);
-
-        $param = array(
-            'field' => $this->_getFields(false),
-            'value' => $this->_getValues(false),
-            'bind' => array(
-                'name' => $rec['name'],
-                'email' => $rec['email']
-            ),
-            'where' => 'id=' . $rec['id']
-        );
-        $this->update($param);
     }
 
 }

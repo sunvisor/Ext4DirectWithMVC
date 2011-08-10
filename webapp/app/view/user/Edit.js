@@ -14,7 +14,7 @@ If you are unsure which license is appropriate for your use, please contact the 
 */
 Ext.define('AM.view.user.Edit', {
     extend: 'Ext.window.Window',
-    alias : 'widget.AM.useredit',
+    alias : 'widget.AMuseredit',
 
     requires: ['Ext.form.Panel'],
 

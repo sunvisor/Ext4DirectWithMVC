@@ -5,7 +5,7 @@ Ext.define('AM.view.Viewport', {
     layout: 'fit',
     items: [
         {
-            xtype: 'AM.userlist',
+            xtype: 'AMuserlist',
             tbar: [
                 {
                     text:'新規...',
