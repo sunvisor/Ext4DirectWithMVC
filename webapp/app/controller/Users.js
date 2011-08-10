@@ -16,8 +16,8 @@ Ext.define('AM.controller.Users', {
 
     refs: [
         {
-            ref: 'usersPanel',
-            selector: 'panel'
+            ref: 'dataview',
+            selector: 'AMuserlist dataview'
         }
     ],
 
@@ -81,8 +81,8 @@ Ext.define('AM.controller.Users', {
     },
 
     onGridClick: function(grid) {
-        grid.ownerCt.down(('button[action=delete]')).enable();
-        grid.ownerCt.down(('button[action=edit]')).enable();
+        grid.ownerCt.down('button[action=delete]').enable();
+        grid.ownerCt.down('button[action=edit]').enable();
     },
 
     onGridDblClick: function(grid, record){
@@ -128,11 +128,12 @@ Ext.define('AM.controller.Users', {
             record.set(values);
         }
         win.close();
-        // this.getUsersStore().sync();
     },
 
     getSelectionModel: function() {
-        return button.up('AMuserlist').getView().getSelectionModel();
+        var me = this;
+
+        return me.getDataview().getSelectionModel();
     }
 
 });
