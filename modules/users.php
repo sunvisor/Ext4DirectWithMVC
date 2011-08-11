@@ -73,6 +73,11 @@ class users extends xFrameworkPX_Model
         );        
     }
 
+    public function getHero()
+    {
+        return 'Thomas';
+    }
+
     /**
      * updateRec 
      * 
