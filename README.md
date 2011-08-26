@@ -2,8 +2,10 @@
 
 Ext JS 4のMVCアーキテクチャで、Ext.Directを使うサンプルです。
 
-サーバーサイドはxFrameworkPXを使っています。
-ここでは、modulesフォルダの下だけを載せています。
+サーバーサイドは
+[xFrameworkPX](https://github.com/xenophy/xFrameworkPX)
+を使っています。
+ここでは、webappとmodulesフォルダの下だけを載せています。
 実行させるには、動作するPXの環境を用意してください。
 
 Ext JS 4のライブラリは、public_html フォルダの下に ext4 の名前で用意してください。
@@ -16,4 +18,4 @@ PXのデバッグモードは1以下を設定してください。
 
 解説記事は次のサイトをご覧ください。
 
-<http://extjs.sunvisor.net/ext4direct/mvc/>
+<http://extjs.sunvisor.net/using-direct-with-mvc/>
